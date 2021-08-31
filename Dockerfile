@@ -1,13 +1,20 @@
-FROM debian:latest
+# Python Based Docker
+FROM python:latest
 
 RUN apt update && apt upgrade -y
-RUN apt-get install ffmpeg
+
+#Installing Requirements
+RUN apt install git curl python3-pip ffmpeg -y
+
+#Updating Pip
 RUN pip3 install -U pip
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
-RUN apt-get install -y nodejs
-RUN npm i -g npm
-RUN mkdir /app/
-WORKDIR /app/
-COPY . /app/
+
+#Copying Requirements
+
+RUN cd /
+RUN mkdir /ytlive
+WORKDIR /ytlive
 COPY start.sh /start.sh
+
+#Running Radio Player Bot
 CMD ["/bin/bash", "/start.sh"]
